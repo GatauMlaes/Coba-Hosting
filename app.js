@@ -61,7 +61,7 @@ db.connect((err) => {
         db.query(sql,(err,result) => {
             if(err) throw err;
             const barang = JSON.parse(JSON.stringify(result, null, 2));
-            res.render("homr",{barang})
+            res.render("home",{barang})
         })
         
     })
@@ -92,7 +92,7 @@ db.connect((err) => {
             jenis
         }
         addCart(produk)
-       res.redirect("/cart")
+       res.redirect("/")
     })
 
     app.delete("/cart/:inv", (req,res) => {
@@ -103,7 +103,7 @@ db.connect((err) => {
 
     })
 
-    app.get("/neww",(req,res) => {
+    app.get("/dashboard",(req,res) => {
         const sql = "SELECT * FROM tb_barang"
         db.query(sql,(err,result) => {
             if(err) throw err;
@@ -146,36 +146,31 @@ db.connect((err) => {
         const sql = `DELETE FROM tb_barang WHERE tb_barang.kode_barang = '${kodeBarang}'`
         db.query(sql,(err,result) => {
             if(err)throw err;
-            res.redirect("/")
+            res.redirect("/dashboard")
         })
 
     })
-    app.get("/dashboard",(req,res) => {
-        const sql = "SELECT * FROM tb_barang"
-        db.query(sql,(err,result) => {
-            if(err) throw err;
-            const barang = JSON.parse(JSON.stringify(result, null, 2));
-            console.log(barang);
-            res.render("dashborad.ejs",{barang})
-        })
-        
+
+    
+
+    app.get("/add-product",(req,res) => {
+        res.render("add.ejs")
     })
     
-    app.get("/add",(req,res) => {
-        res.render("add-product.ejs")
-    })
-    
-    app.post("/",upload.single("asset"),(req,res) =>{
+    app.post("/add",upload.single("asset"),(req,res) =>{
         const namaBarang = req.body.nama_barang
         const kodeBarang = req.body.kode_barang
         const jenis = req.body.jenis
         const harga = req.body.harga
         const quantitas = req.body.quantitas
-        const namaFile = req.file.filename 
-        const sql = `INSERT INTO tb_barang (id, kode_barang, nama_barang, jenis, quantitas, harga, gambar) VALUES (NULL, '${kodeBarang}', '${namaBarang}', '${jenis}', ${quantitas}, ${harga}, '${namaFile}');`
+        const deskripsi = req.body.deskripsi
+        const namaFile = req.file.filename
+        console.log(req.file.mimetype); 
+        
+        const sql = `INSERT INTO tb_barang (id, kode_barang, nama_barang, jenis, quantitas, harga, gambar,deskripsi) VALUES (NULL, '${kodeBarang}', '${namaBarang}', '${jenis}', ${quantitas}, ${harga}, '${namaFile}', '${deskripsi}');`
         db.query(sql,(err,result) => {
             if(err)throw err;
-            res.redirect("/add")
+            res.redirect("/add-product")
         })
 
     
@@ -189,12 +184,7 @@ db.connect((err) => {
     
     
     
-    app.get("/inv",(req,res) => {
-        res.render("dash.ejs")
-    })
-    app.get("/items",(req,res) => {
-        res.render("dash.ejs")
-    })
+
 
 })
 

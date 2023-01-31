@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/bootstrap-icons.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <style>
+    @charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,300,700);
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0b0b0b;
+  font-family: "Nunito", sans-serif;
+}
+
+nav {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 70px;
+  background-color: #ffffff;
+  line-height: 70px;
+}
+nav .mini {
+  position: fixed;
+  top: 80px;
+  right: 10px;
+  background: #fff;
+  padding: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease 0.2s;
+}
+nav .mini.visible {
+  padding: 40px;
+  opacity: 1;
+  visibility: visible;
+}
+nav .mini .products {
+  font-weight: bold;
+  font-size: 14px;
+}
+nav .mini p {
+  font-size: 11px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: 20px;
+}
+nav .cart {
+  position: relative;
+  float: right;
+  margin-right: 50px;
+  height: 20px;
+  line-height: 70px;
+  font-size: 28px;
+  height: 100%;
+  cursor: pointer;
+}
+nav .cart span {
+  height: 100%;
+  float: left;
+  margin-right: 20px;
+  opacity: 1;
+  color: #fff;
+  font-size: 18px;
+  font-family: "Nunito", sans-serif;
+}
+nav .cart span.updateQuantity:before, nav .cart span.updateQuantity:after {
+  top: 0;
+  bottom: 0;
+  opacity: 1;
+  width: 30px;
+  transition: all 0.2s ease, top 0.3s ease 0.4s, bottom 0.3s ease 0.4s;
+}
+nav .cart span.update {
+  transition: color 0.2s ease 0.6s;
+  color: #000;
+}
+nav .cart span.update:before {
+  top: -30px;
+  width: 30px;
+  opacity: 1;
+  transition: all 0.2s ease, top 0.3s ease 0.4s, bottom 0.3s ease 0.4s;
+}
+nav .cart span.update:after {
+  top: 30px;
+  width: 30px;
+  opacity: 1;
+  transition: all 0.2s ease, top 0.3s ease 0.4s, bottom 0.3s ease 0.4s;
+}
+nav .cart span:before, nav .cart span:after {
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: 2px;
+  background-color: #0b0b0b;
+  left: -10px;
+  right: 40px;
+  top: 2px;
+  bottom: 0;
+  margin: auto;
+}
+nav ul {
+  float: left;
+}
+nav ul li {
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 50px;
+  color: #0b0b0b;
+  font-size: 12px;
+}
+
+.container {
+  padding: 20px;
+  padding-top: 100px;
+  text-align: center;
+}
+/*  */
+.container .product {
+  position: relative;
+  overflow: hidden;
+  width: 200px;
+  height: 300px;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.45);
+  margin: 20px;
+  padding: 15px;
+}
+.container .product img {
+  /* position: relative;
+  
+  top: -15px;
+  left: -15px; */
+  margin: auto;
+  max-width: 200px;
+  transition: all 0.2s ease;
+  -webkit-clip-path: polygon(0 100%, 0 0, 100% 0, 100% 70%);
+          clip-path: polygon(0 100%, 0 0, 100% 0, 100% 70%);
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  
+}
+.container .product img:hover {
+  -webkit-clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%);
+          clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%);
+  transform: scale(1.1);
+}
+.container .product h2 {
+  text-align: left;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.container .product .description {
+  text-align: left;
+  font-size: 11px;
+  color: #fff;
+  max-height: 23px;
+  overflow: hidden;
+}
+.container .product .price {
+  text-align: left;
+  font-size: 18px;
+  color: #fff;
+  margin-top: 0px;
+  
+}
+.container .product .btn {
+  position: absolute;
+  font-size: 11px;
+  font-weight: bold;
+  float: right;
+  padding: 10px;
+  border: 2px solid #00fefe;
+  border-radius: 20px;
+  bottom: 5px;
+  right: 10px;
+  color: #00fefe;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.container .product .btn.ok {
+  background-color: rgba(0, 254, 254, 0.4);
+  color: #fff;
+}
+.container .product .btn.ok:after {
+ 
+  color: #fff;
+}
+.container .product .btn:hover {
+  padding-right: 25px;
+}
+.container .product .btn:hover:after {
+  margin-left: 5px;
+}
+.container .product .btn:after {
+  font-family: "simple-line-icons";
+  
+  transition: all 0.2s ease;
+  position: absolute;
+  color: #00fefe;
+  margin-left: 30px;
+  transition: all 0.2s ease;
+}
+.container .product .quickview {
+  position: absolute;
+  bottom: 15px;
+  font-size: 11px;
+  color: #fff;
+  cursor: pointer;
+}
+.container .product .quickview:before {
+  font-family: "simple-line-icons";
+  
+  margin-right: 3px;
+}
+
+.quickviewContainer {
+  position: fixed;
+  height: 100vh;
+  width: 400px;
+  background: rgba(0, 0, 0, 0.9);
+  top: 70px;
+  right: -100%;
+  transition: all 0.3s ease;
+  padding: 30px;
+  color: #fff;
+}
+.quickviewContainer .close {
+  height: 20px;
+  width: 20px;
+  float: right;
+  cursor: pointer;
+}
+.quickviewContainer .close:before, .quickviewContainer .close:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background-color: #fff;
+  transform: rotate(45deg);
+}
+.quickviewContainer .close:after {
+  transform: rotate(-45deg);
+}
+.quickviewContainer .headline {
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+.quickviewContainer .description {
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+.quickviewContainer img {
+  display: inline-block;
+  border-radius: 4px;
+  margin: 5px;
+}
+.quickviewContainer.active {
+  right: 0;
+}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class='mini'>
+      <p class='products'>Empty</p>
+      <p class='names'></p>
+      <p class='miniprice'></p>
+    </div>
+    <ul>
+      <li>Home</li>
+      <li>Webshop</li>
+      <li>Contact</li>
+    </ul>
+    <div class='cart icon-basket'>
+      <a href="/cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </svg></a>
+    </div>
+  </nav>
+  <div class='container bg-dark rounded'>
+    <% barang.forEach(product => { %>
+      <div class='product'>
+        <img src='<%= product.gambar %>'  height="150px">
+        <h2 class='header'><%= product.nama_barang %> </h2>
+        <p class='description'>Nullam posuere turpis vel lacinia luctus. Donec in efficitur neque. Curabitur consectetur non ipsum in eleifend. Praesent id velit in nisi maximus porta nec vitae odio. Proin vitae magna a massa accumsan venenatis. Donec semper, sem in ullamcorper bibendum, mauris sem imperdiet lorem, tempor aliquet ligula lorem sit amet nibh. Suspendisse potenti.</p>
+        <p class='price'>Rp.<%= product.harga %> </p>
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#<%= product.kode_barang %>">Add To Card</button>
+        <div class='quickview'>Quickview</div>
+      </div>
+    <% }) %>
+  </div>
+  <div class='quickviewContainer'>
+    <div class='close'></div>
+    <h2 class='headline'></h2>
+    <p class='description'></p>
+    <img src='https://placeimg.com/100/100'>
+    <img src='https://placeimg.com/100/100'>
+    <img src='https://placeimg.com/100/100'>
+  </div>
+
+  <% barang.forEach(m => { %>
+                 
+    <!-- Modal -->
+    <div class="modal fade" id="<%= m.kode_barang %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel"><%= m.nama_barang %> </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/cart" method="post">
+              <div class="mb-3 first">
+                <input type="hidden" name="kode_barang" value="<%= m.kode_barang %>">
+                <input type="hidden" value="<%= m.harga %>" name="harga" class="harga">
+                <input type="hidden" value="<%= m.gambar %>" name="gambar" class="gambar">
+                <input type="hidden" name="nama_barang" value="<%= m.nama_barang %>" class="nama_barang">
+                
+                <input class="form-control" type="text" value="<%= m.jenis %>" aria-label="readonly input example" name="jenis" readonly>
+                <h4>Rp<%= m.harga %></h4>
+              </div>
+              <div class="mb-3 second">
+                <img src="<%= m.gambar %>" style="width: 200px;" alt="<%= m.nama_barang %>">
+              </div>
+              <div class="mb-3 third">
+                <label for="exampleFormControlTextarea1" class="form-label">Jumlah Yang Ingin Di Beli</label>
+                <input  class="form-control qtt" type="number" 
+       onKeyUp="if(this.value>999){this.value='999';}else if(this.value<0){this.value='0';}" required name="qtt">
+    <label for="exampleFormControlTextarea1" class="form-label">Rp</label>
+    <input class="form-control jumlah_harga" type="number" aria-label="readonly input example" name="jumlah_harga" readonly>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                </svg></button>
+              </div>
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+                    <% }) %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+  <script>
+    var cartCount = 0,
+	buy = $(".btnjgujgvg"),
+	span = $(".number"),
+	cart = $(".cart"),
+	quickview = $(".quickviewContainer"),
+	quickViewBtn = $(".quickview"),
+	close = $(".quickviewContainer .close"),
+	minicart = [],
+	totalPrice = [],
+	miniCartPrice;
+
+buy.on("click", addToCart);
+quickViewBtn.on("click", quickView);
+cart.on("click", showMiniCart);
+close.on("click", function () {
+	quickview.removeClass("active");
+});
+
+function quickView() {
+	var description = $(this).parent().find(".description").text(),
+		header = $(this).parent().find(".header").text(),
+		price = $(this).find(".price"),
+		quickViewHeader = $(".quickviewContainer .headline"),
+		quickViewDescription = $(".quickviewContainer .description");
+	clearTimeout(timeQuick);
+	if (quickview.hasClass("active")) {
+		quickview.removeClass("active");
+		var timeQuick = setTimeout(function () {
+			quickview.addClass("active");
+		}, 300);
+	} else {
+		quickview.addClass("active");
+	}
+
+	quickViewHeader.text(header);
+	quickViewDescription.text(description);
+}
+
+// function showMiniCart() {
+// 	$(".mini").toggleClass("visible");
+// }
+
+function addToCart() {
+	var self = $(this),
+		productName = $(this).parent().find(".header").text(),
+		miniCartNames = $(".products"),
+		names = $(".names"),
+		price = $(this).parent().find(".price").text(),
+		priceInt = parseInt(price);
+
+	totalPrice.push(priceInt);
+	miniCartPrice = totalPrice.reduce(function (a, b) {
+		return a + b;
+	});
+	$(".miniprice").text("Total amount: " + miniCartPrice + ",-");
+	minicart.push(productName);
+	lastProduct = minicart[minicart.length - 1];
+	miniCartNames.text("Your cart lines: ");
+	names.append("<p>" + lastProduct + "</p>");
+
+	cartCount++;
+	span.text(cartCount);
+	clearTimeout(time);
+	if (span.hasClass("update")) {
+		span.removeClass("update");
+		span.addClass("updateQuantity");
+		var time = setTimeout(function () {
+			span.removeClass("updateQuantity");
+			span.addClass("update");
+		}, 700);
+	} else {
+		span.addClass("update");
+	}
+	if (cartCount == 1) {
+		cart.toggleClass("icon-basket icon-basket-loaded");
+	}
+
+	$(this).addClass("ok");
+	var timeOk = setTimeout(function () {
+		self.removeClass("ok");
+	}, 1000);
+}
+
+const quantitas = document.querySelectorAll("div.modal div.modal-dialog div.modal-content div.modal-body form div.third input.qtt")
+        const harga = document.querySelectorAll("div.modal div.modal-dialog div.modal-content div.modal-body form div.first input.harga")
+        const jmlHarga = document.querySelectorAll("div.modal div.modal-dialog div.modal-content div.modal-body form div.third input.jumlah_harga")
+        // quantitas.forEach((q) => [
+        // q.addEventListener("keyup", function()  {
+        //   console.log(this.value);
+        //   jmlHarga.value=this.value*harga.value
+        // })
+        // ])
+        quantitas.forEach((qtt,i) => {
+          
+          qtt.addEventListener("keyup" , function () {
+           const jumlahqtt = this.value
+            console.log(jumlahqtt,i);
+            jmlHarga[i].value = jumlahqtt*harga[i].value
+          })
+        })
+        
+
+  </script>
+</body>
+</html>

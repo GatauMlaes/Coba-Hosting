@@ -118,7 +118,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                         <!-- Title -->
-                        <h1 class="h2 mb-3 ls-tight">Edit Product</h1>
+                        <h1 class="h2 mb-3 ls-tight">Product</h1>
                     </div>
                 </div>
                 <!-- Nav -->
@@ -129,51 +129,50 @@
 
 
      <!-- Main content -->
-     <main class="container">  
-
-      <form method="post" enctype="multipart/form-data"  action="/update?_method=PUT">
-        <% barang.forEach(b => { %>
-         
-          <input type="hidden" name="id" value="<%= b.id %>">
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
-            <input type="text" required    class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="nama_barang" value="<%= b.nama_barang %>" >
+  <div class="container-fluid">
+    
+    <form method="post" enctype="multipart/form-data"  action="/add">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
+          <input type="text" required    class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="nama_barang" >
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Kode Barang</label>
+            <input type="text" required    class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="13" name="kode_barang">
+          </div>
+        <div class="mb-3">
+            <select class="form-select" name="jenis" aria-label="Default select example">
+                <option selected>Jenis</option>
+                <option value="Barang">Barang</option>
+                <option value="Makanan">Makanan</option>
+                <option value="Makanan Cepat Saji">Makanan Cepat Saji</option>
+                <option value="Minuman">Minuman</option>
+                <option value="Minuman Sachet">Minuman Sachet</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+          </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Quantitas</label>
+            <input type="number"required  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="quantitas">
+          </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Harga (Rp.)</label>
+            <input type="number"required   class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="9" name="harga">
           </div>
           <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Kode Barang</label>
-              <input type="text" required    class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="13" name="kode_barang" value="<%= b.kode_barang %>">
-            </div>
+            <label for="exampleInputEmail1" class="form-label">Deskripsi</label>
+            <input type="text" required    class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="deskripsi" >
+          </div>
           <div class="mb-3">
-            <select class="form-select" name="jenis" aria-label="Default select example">
-              <option selected>Jenis</option>
-              <option value="Barang">Barang</option>
-              <option value="Makanan">Makanan</option>
-              <option value="Makanan Cepat Saji">Makanan Cepat Saji</option>
-              <option value="Minuman">Minuman</option>
-              <option value="Minuman Sachet">Minuman Sachet</option>
-              <option value="Lainnya">Lainnya</option>
-            </select>
-            </div>
-          <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Quantitas</label>
-              <input type="number"required  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="quantitas" value="<%= b.quantitas %>">
-            </div>
-          <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Harga (Rp.)</label>
-              <input type="number"required   class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="9" name="harga" value="<%= b.harga %>">
-            </div>
-
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Foto</label>
-              <input type="file" required name="asset" id="photo"  accept="image/*,image/png, image/jpeg">
-            </div>
-           
-            <% }) %>
-            
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-
-    </main>
+            <label for="exampleInputEmail1" class="form-label">Foto</label>
+            <input type="file" required    name="asset" id=""  accept="image/png, image/jpeg">
+          </div>
+         
+          
+          
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
 </div>
  
 
