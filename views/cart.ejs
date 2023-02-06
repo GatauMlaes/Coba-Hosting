@@ -5,6 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/bootstrap-icons.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
   <style>
     @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
 html, body, div, span, applet, object, iframe,
@@ -126,7 +129,7 @@ img {
   font-size: 2em;
   float: left;
 }
-.heading a.continue:link, .heading a.continue:visited {
+.heading button.continue:link, .heading button.continue:visited {
   text-decoration: none;
   font-family: "Montserrat", sans-serif;
   letter-spacing: -0.015em;
@@ -144,7 +147,7 @@ img {
   -o-transition: all 0.25s linear;
   transition: all 0.25s linear;
 }
-.heading a.continue:after {
+.heading button.continue:after {
   content: "\276f";
   padding: 0.5em;
   position: relative;
@@ -155,10 +158,10 @@ img {
   -o-transition: all 0.15s linear;
   transition: all 0.15s linear;
 }
-.heading a.continue:hover, .heading a.continue:focus, .heading a.continue:active {
+.heading button.continue:hover, .heading button.continue:focus, .heading button.continue:active {
   background: #f69679;
 }
-.heading a.continue:hover:after, .heading a.continue:focus:after, .heading a.continue:active:after {
+.heading button.continue:hover:after, .heading button.continue:focus:after, .heading button.continue:active:after {
   right: -10px;
 }
 
@@ -366,7 +369,7 @@ button.remove:hover {
 }
 .promoCode .btn {
   font-size: 0.85em;
-  paddding: 0.5em 2em;
+  padding: 0.5em 2em;
 }
 
 /* TOTAL AND CHECKOUT  */
@@ -444,7 +447,7 @@ button.remove:hover {
     width: 100%;
   }
 
-  a.btn.continue {
+  button.btn.continue {
     width: 100%;
     text-align: center;
   }
@@ -457,7 +460,7 @@ button.remove:hover {
     <h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>
     <div class="heading cf">
       <h1>My Cart</h1>
-      <a href="/" class="continue">Continue Shopping</a>
+      <a href="/" class="btn btn-primary">Continue Shopping</a>
     </div>
     <div class="cart">
   <!--    <ul class="tableHead">
@@ -511,7 +514,7 @@ button.remove:hover {
         
               <li class="totalRow"><span class="label">Tax</span><span class="value">Rp.</span><span class="value" id="pajak">2500</span></li>
               <li class="totalRow final"><span class="label">Total</span><span class="value">Rp.</span><span class="value" id="totalFinal"></span></li>
-        <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>
+        <li class="totalRow"><form action="/checkout" method="post"><button class="btn btn-primary" type="submit">Checkout</button></form></li>
       </ul>
     </div>
   </div>

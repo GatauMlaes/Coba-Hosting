@@ -252,11 +252,15 @@
                                       </span>
                                   </td>
                                   <td class="text-end">
-                                    <form action="/<%= produk.kode_barang %>?_method=PUT" method="post"><button type="submit" class="btn btn-sm btn-square btn-neutral text-danger-hover"><i class="bi bi-pen"></i></button></form>
+                                    <form action="/<%= produk.kode_barang %>?_method=PUT" method="post">
+                                        
+                                        <button type="submit" class="btn btn-sm btn-square btn-neutral text-danger-hover"><i class="bi bi-pen"></i></button></form>
                                   </td>
                                   <td class="text-end">
 
-                                      <form action="/<%= produk.kode_barang %>?_method=DELETE" method="post"><button type="submit" class="btn btn-sm btn-square btn-neutral text-danger-hover" onclick="return confirm(`Yakin Mau Menghapus ?`)"> <i class="bi bi-trash"></i></button></form>
+                                      <form action="/<%= produk.kode_barang %>?_method=DELETE" method="post">
+                                        <input type="hidden" name="gambar" value="<%= produk.gambar %>">
+                                        <button type="submit" class="btn btn-sm btn-square btn-neutral text-danger-hover" onclick="return confirm(`Yakin Mau Menghapus ?`)"> <i class="bi bi-trash"></i></button></form>
                                   </td>
                               </tr>
                               <% }) %>

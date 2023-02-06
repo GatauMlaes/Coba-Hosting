@@ -8,6 +8,8 @@ const mysql = require("mysql");
 const bodyParser = require("body-parser")
 const { devNull } = require("os")
 const {loadCart,saveCarts,addCart, findCart, deleteCart} = require("./utils/cart")
+const { count } = require("console")
+const { createSecureContext } = require("tls")
 
 const app = express()
 
@@ -19,10 +21,26 @@ app.use(express.static("public"));
 app.use(express.static('assets'))
 app.use(methodOverride("_method"))
 
-const dirPath = "./assets";
-if (!fs.existsSync(dirPath)) {
+const diryPath = "./assets";
+if (!fs.existsSync(diryPath)) {
   fs.mkdirSync("public");
 }
+
+//CHECKOUT FILE 
+
+const dirPath = "./data"
+if(!fs.existsSync(dirPath)){
+    fs.mkdirSync("data")
+}
+
+
+
+const dataPath = "./data/checkout.json"
+if(!fs.existsSync(dataPath)){
+    fs.writeFileSync(dataPath, '{"cart":[] }', "utf-8")
+}
+
+
 
 const db = mysql.createConnection({
     host:"localhost",
@@ -108,7 +126,7 @@ db.connect((err) => {
         db.query(sql,(err,result) => {
             if(err) throw err;
             const barang = JSON.parse(JSON.stringify(result, null, 2));
-            console.log(barang);
+            // console.log(barang);
             res.render("dashboardneww.ejs",{barang})
             
         })
@@ -143,6 +161,8 @@ db.connect((err) => {
 
     app.delete("/:id",(req,res) => {
         const kodeBarang = req.params.id
+        const gambar = req.body.gambar
+        fs.unlinkSync(`./assets/${gambar}`)
         const sql = `DELETE FROM tb_barang WHERE tb_barang.kode_barang = '${kodeBarang}'`
         db.query(sql,(err,result) => {
             if(err)throw err;
@@ -156,6 +176,23 @@ db.connect((err) => {
     app.get("/add-product",(req,res) => {
         res.render("add.ejs")
     })
+
+    app.post("/checkout",(req,res) => {
+        const carts = loadCart()
+        for(let i = 0 ; i < carts.cart.length ; i++){
+            console.log(carts.cart[i]);
+            const cart = carts.cart[i]
+
+            console.log(cart.inv);
+            const sql = `INSERT INTO tb_tranksaksi (no_invoice, kode_barang, quantitas, harga, sub_harga) VALUES ('${cart.inv}', '${cart.kode_barang}', '${cart.qtt}', '${cart.harga}', '${cart.jumlah_harga}');`
+            db.query(sql,(err,result) => {
+                if(err) throw err;
+            })
+        }
+        res.redirect("/")
+
+        
+    })
     
     app.post("/add",upload.single("asset"),(req,res) =>{
         const namaBarang = req.body.nama_barang
@@ -165,7 +202,7 @@ db.connect((err) => {
         const quantitas = req.body.quantitas
         const deskripsi = req.body.deskripsi
         const namaFile = req.file.filename
-        console.log(req.file.mimetype); 
+        // console.log(req.file.mimetype); 
         
         const sql = `INSERT INTO tb_barang (id, kode_barang, nama_barang, jenis, quantitas, harga, gambar,deskripsi) VALUES (NULL, '${kodeBarang}', '${namaBarang}', '${jenis}', ${quantitas}, ${harga}, '${namaFile}', '${deskripsi}');`
         db.query(sql,(err,result) => {

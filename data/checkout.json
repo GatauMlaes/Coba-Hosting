@@ -1,64 +1,24 @@
 {
   "cart": [
     {
-      "inv": "INV1675042177674",
-      "kode_barang": "BRG-BRGLWK2",
-      "nama_barang": "Luwak White Coffe",
-      "harga": "1500",
-      "jumlah_harga": "4500",
-      "qtt": "3",
-      "gambar": "167504128991020036590_1.jpg",
-      "jenis": "Minuman Sachet"
-    },
-    {
-      "inv": "INV1675045554588",
-      "kode_barang": "BRG-BRGABC3",
-      "nama_barang": "Kopi ABC",
-      "harga": "3000",
-      "jumlah_harga": "9000",
-      "qtt": "3",
-      "gambar": "1675044557446g5S000003581-6.webp",
-      "jenis": "Minuman Sachet"
-    },
-    {
-      "inv": "INV1675061884144",
-      "kode_barang": "BRG-BRGNSGR4",
-      "nama_barang": "Nasi Goreng",
-      "harga": "15000",
-      "jumlah_harga": "30000",
-      "qtt": "2",
-      "gambar": "1675052109201download (2).jpg",
-      "jenis": "Makanan"
-    },
-    {
-      "inv": "INV1675131824231",
-      "kode_barang": "BRG-BRGNSGR4",
-      "nama_barang": "Nasi Goreng",
-      "harga": "15000",
-      "jumlah_harga": "15000",
-      "qtt": "1",
-      "gambar": "1675052109201download (2).jpg",
-      "jenis": "Makanan"
-    },
-    {
-      "inv": "INV1675131847611",
-      "kode_barang": "BRG-BRGWHY3",
-      "nama_barang": "WHEY PROTEIN",
-      "harga": "230000",
-      "jumlah_harga": "460000",
-      "qtt": "2",
-      "gambar": "1675058078576download (3).jpg",
-      "jenis": "Lainnya"
-    },
-    {
-      "inv": "INV1675131968024",
-      "kode_barang": "BRG-BRGNSGR4",
-      "nama_barang": "Nasi Goreng",
+      "inv": "INV1675649153666",
+      "kode_barang": "BRG-1675649041894",
+      "nama_barang": "Mixue Ice-Cream",
       "harga": "15000",
       "jumlah_harga": "45000",
       "qtt": "3",
-      "gambar": "1675052109201download (2).jpg",
-      "jenis": "Makanan"
+      "gambar": "16756491284201674869924317mixue-4_43.jpeg",
+      "jenis": "Lainnya"
+    },
+    {
+      "inv": "INV1675649161648",
+      "kode_barang": "BRG-1675647408532",
+      "nama_barang": "Luwak White Coffe -Original",
+      "harga": "1500",
+      "jumlah_harga": "7500",
+      "qtt": "5",
+      "gambar": "16756475115731674901426909219868570_538a4c74-86ee-408c-9f70-606460ba4f68_500_500.jpg",
+      "jenis": "Minuman Sachet"
     }
   ]
 }

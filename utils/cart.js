@@ -1,17 +1,6 @@
 const fs = require("fs")
 
 
-const dirPath = "./data"
-if(!fs.existsSync(dirPath)){
-    fs.mkdirSync("data")
-}
-
-
-
-const dataPath = "./data/checkout.json"
-if(!fs.existsSync(dataPath)){
-    fs.writeFileSync(dataPath, '{"cart":[] }', "utf-8")
-}
 
 const findCart = (kode) => {
   const carts = loadCart();
