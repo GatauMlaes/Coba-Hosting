@@ -10,6 +10,7 @@ const { devNull } = require("os")
 const {loadCart,saveCarts,addCart, findCart, deleteCart} = require("./utils/cart")
 const { count } = require("console")
 const { createSecureContext } = require("tls")
+const { url } = require("inspector")
 
 const app = express()
 
@@ -122,16 +123,32 @@ db.connect((err) => {
     })
 
     app.get("/dashboard",(req,res) => {
-        const sql = "SELECT * FROM tb_barang"
+        const sql = "SELECT * FROM tb_barang "
         db.query(sql,(err,result) => {
             if(err) throw err;
             const barang = JSON.parse(JSON.stringify(result, null, 2));
+            // console.log(barang.length);
             // console.log(barang);
-            res.render("dashboardneww.ejs",{barang})
+            const jumlahDataPerHalaman=2
+            const jumlahData = barang.length
+            let jumlahHalaman = Math.ceil(jumlahData/jumlahDataPerHalaman)
+            let halamanAktif = (req.query.page) ?req.query.page :1
+            console.log(jumlahHalaman);
+            let awalData = (jumlahDataPerHalaman * halamanAktif) - jumlahDataPerHalaman
+            const sql2 = `SELECT * FROM tb_barang LIMIT ${awalData},${jumlahDataPerHalaman}`
+            db.query(sql2,(errorr,hasil) => {
+                if(errorr) throw errorr;
+                
+                const product = JSON.parse(JSON.stringify(hasil, null, 2));
+                res.render("dashboardneww.ejs",{product,jumlahHalaman,halamanAktif})
+            })
+            
             
         })
        
     })
+
+
 
     app.put("/update",upload.single("asset"),(req,res) => {
         const namaBarang = req.body.nama_barang
@@ -184,7 +201,7 @@ db.connect((err) => {
             const cart = carts.cart[i]
 
             console.log(cart.inv);
-            const sql = `INSERT INTO tb_tranksaksi (no_invoice, kode_barang, quantitas, harga, sub_harga) VALUES ('${cart.inv}', '${cart.kode_barang}', '${cart.qtt}', '${cart.harga}', '${cart.jumlah_harga}');`
+            const sql = `INSERT INTO tb_tranksaksi (no_invoice, kode_barang, quantitas, harga, sub_harga,jenis,gambar) VALUES ('${cart.inv}', '${cart.kode_barang}', '${cart.qtt}', '${cart.harga}', '${cart.jumlah_harga}','${cart.jenis}','${cart.gambar}');`
             db.query(sql,(err,result) => {
                 if(err) throw err;
             })

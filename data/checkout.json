@@ -19,6 +19,16 @@
       "qtt": "5",
       "gambar": "16756475115731674901426909219868570_538a4c74-86ee-408c-9f70-606460ba4f68_500_500.jpg",
       "jenis": "Minuman Sachet"
+    },
+    {
+      "inv": "INV1675743381683",
+      "kode_barang": "BRG-1675741555524",
+      "nama_barang": "Nasi Goreng",
+      "harga": "10000",
+      "jumlah_harga": "30000",
+      "qtt": "3",
+      "gambar": "16757416226331675052175625download (2).jpg",
+      "jenis": "Makanan"
     }
   ]
 }
