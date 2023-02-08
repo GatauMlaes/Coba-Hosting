@@ -127,20 +127,18 @@ db.connect((err) => {
         db.query(sql,(err,result) => {
             if(err) throw err;
             const barang = JSON.parse(JSON.stringify(result, null, 2));
-            // console.log(barang.length);
-            // console.log(barang);
-            const jumlahDataPerHalaman=2
+            const jumlahDataPerHalaman=5
             const jumlahData = barang.length
             let jumlahHalaman = Math.ceil(jumlahData/jumlahDataPerHalaman)
             let halamanAktif = (req.query.page) ?req.query.page :1
-            console.log(jumlahHalaman);
+        
             let awalData = (jumlahDataPerHalaman * halamanAktif) - jumlahDataPerHalaman
             const sql2 = `SELECT * FROM tb_barang LIMIT ${awalData},${jumlahDataPerHalaman}`
             db.query(sql2,(errorr,hasil) => {
                 if(errorr) throw errorr;
                 
                 const product = JSON.parse(JSON.stringify(hasil, null, 2));
-                res.render("dashboardneww.ejs",{product,jumlahHalaman,halamanAktif})
+                res.render("dashboardneww.ejs",{product,jumlahHalaman,halamanAktif,barang})
             })
             
             
@@ -148,8 +146,97 @@ db.connect((err) => {
        
     })
 
+    app.get("/order",(req,res) => {
+        const sql = `SELECT * FROM tb_tranksaksi`
+        db.query(sql,(err,result) => {
+            if(err) throw err ;
+            const barang = JSON.parse(JSON.stringify(result, null, 2));
+            const jumlahData = barang.length
+            const jumlahDataPerHalaman=5
+            let jumlahHalaman = Math.ceil(jumlahData/jumlahDataPerHalaman)
+            let halamanAktif = (req.query.page) ?req.query.page :1
+            let awalData = (jumlahDataPerHalaman * halamanAktif) - jumlahDataPerHalaman
+            const sql2 = `SELECT * FROM tb_tranksaksi LIMIT ${awalData},${jumlahDataPerHalaman}`
+            db.query(sql2,(error,hasil) => {
+                if(error) throw error ;
+                const product = JSON.parse(JSON.stringify(hasil, null, 2));
+     
+                res.render("order.ejs",{product,jumlahHalaman,halamanAktif,barang})
+            })
+           
+        })
+    })
 
 
+    app.post("/dashboard",(req,res) => {
+      
+    
+        const sql = `SELECT * FROM tb_barang WHERE nama_barang LIKE '%${req.query.keyword}%' OR jenis LIKE '%${req.query.keyword}%'`
+        db.query(sql,(err,result) => {
+            if(err) throw err;
+            const barang = JSON.parse(JSON.stringify(result, null, 2));
+         
+            let textBody = ""
+            barang.forEach(el => {
+                textBody+=`<tr>
+                <td> 
+                    <img alt="" src="${el.gambar}" width="50px">
+                    <a class="text-heading font-semibold" href="#">
+                    ${el.nama_barang}
+                    </a>
+                </td>
+                <td>
+                ${el.harga}
+                </td>
+                <td>
+                  <i class="bi bi-box"></i>
+                    <a class="text-heading font-semibold" href="#">
+                    ${el.quantitas}
+                    </a>
+                </td>
+                <td>
+                ${el.jenis}
+                </td>
+                <td>
+                    <span class="badge badge-lg badge-dot">
+                        <i class="bg-success"></i>${el.kode_barang}
+                    </span>
+                </td>
+                <td class="text-end">
+                  <form action="/${el.kode_barang}?_method=PUT" method="post">
+                      
+                      <button type="submit" class="btn btn-sm btn-square btn-neutral text-danger-hover"><i class="bi bi-pen"></i></button></form>
+                </td>
+                <td class="text-end">
+
+                    <form action="/${el.kode_barang}?_method=DELETE" method="post">
+                      <input type="hidden" name="gambar" value="GAMBAR">
+                      <button type="submit" class="btn btn-sm btn-square btn-neutral text-danger-hover" onclick="return confirm('Yakin Mau Menghapus ?')"> <i class="bi bi-trash"></i></button></form>
+                </td>
+            </tr>`
+            })
+            const respon =`<table class="table table-hover table-nowrap">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Item Code</th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+
+            ${textBody}
+
+            </tbody>
+        </table>`
+      
+            res.send(respon)
+        })
+    })
     app.put("/update",upload.single("asset"),(req,res) => {
         const namaBarang = req.body.nama_barang
         const kodeBarang = req.body.kode_barang
@@ -197,10 +284,10 @@ db.connect((err) => {
     app.post("/checkout",(req,res) => {
         const carts = loadCart()
         for(let i = 0 ; i < carts.cart.length ; i++){
-            console.log(carts.cart[i]);
+          
             const cart = carts.cart[i]
 
-            console.log(cart.inv);
+
             const sql = `INSERT INTO tb_tranksaksi (no_invoice, kode_barang, quantitas, harga, sub_harga,jenis,gambar) VALUES ('${cart.inv}', '${cart.kode_barang}', '${cart.qtt}', '${cart.harga}', '${cart.jumlah_harga}','${cart.jenis}','${cart.gambar}');`
             db.query(sql,(err,result) => {
                 if(err) throw err;
@@ -230,9 +317,11 @@ db.connect((err) => {
     
     })
 
-    app.put("/edit-product",(req,res) =>{
-        res.send("woila")
-    })
+    // app.put("/edit-product",(req,res) =>{
+    //     res.send("woila")
+    // })
+
+
     
     
     
@@ -246,6 +335,6 @@ db.connect((err) => {
 
 
 
-app.listen(3320,() => {
-    console.log(`Running on the port 3320`);
+app.listen(3000,() => {
+    console.log(`Running on the port 3000`);
 })

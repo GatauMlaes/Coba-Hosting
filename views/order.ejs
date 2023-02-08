@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/bootstrap-icons.svg">
+  <style>
+    /* Webpixels CSS */
+/* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+/* URL: https://github.com/webpixels/css */
+
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+  </style>
+</head>
+
+
+<!-- Dashboard -->
+<div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+  <!-- Vertical Navbar -->
+  <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
+      <div class="container-fluid">
+          <!-- Toggler -->
+          <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- Brand -->
+          <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
+              <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="...">
+          </a>
+          <!-- User menu (mobile) -->
+          <div class="navbar-user d-lg-none">
+              <!-- Dropdown -->
+              <div class="dropdown">
+                  <!-- Toggle -->
+                  <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <div class="avatar-parent-child">
+                          <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar- rounded-circle">
+                          <span class="avatar-child avatar-badge bg-success"></span>
+                      </div>
+                  </a>
+                  <!-- Menu -->
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
+                      <a href="#" class="dropdown-item">Profile</a>
+                      <a href="#" class="dropdown-item">Settings</a>
+                      <a href="#" class="dropdown-item">Billing</a>
+                      <hr class="dropdown-divider">
+                      <a href="#" class="dropdown-item">Logout</a>
+                  </div>
+              </div>
+          </div>
+          <!-- Collapse -->
+          <div class="collapse navbar-collapse" id="sidebarCollapse">
+              <!-- Navigation -->
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="/dashboard">
+                          <i class="bi bi-house"></i> Dashboard
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/order">
+                          <i class="bi bi-bar-chart"></i> Order
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/add-product">
+                          <i class="bi bi-chat"></i> Add-Product
+                          <!-- <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span> -->
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="bi bi-bookmarks"></i> Collections
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="bi bi-people"></i> Users
+                      </a>
+                  </li>
+              </ul>
+              <!-- Divider -->
+              <hr class="navbar-divider my-5 opacity-20">
+              <!-- Navigation -->
+
+              <!-- Push content down -->
+              <div class="mt-auto"></div>
+              <!-- User (md) -->
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="bi bi-person-square"></i> Account
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="bi bi-box-arrow-left"></i> Logout
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+  <!-- Main content -->
+  <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+      <!-- Header -->
+      <header class="bg-surface-primary border-bottom pt-6">
+          <div class="container-fluid">
+              <div class="mb-npx">
+                  <div class="row align-items-center">
+                      <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                          <!-- Title -->
+                          <h1 class="h2 mb-0 ls-tight">Product</h1>
+                      </div>
+                      <!-- Actions -->
+
+                  </div>
+
+                  <!-- Nav -->
+                  <ul class="nav nav-tabs mt-4 overflow-x border-0">
+        
+                  </ul>
+              </div>
+          </div>
+      </header>
+      <!-- Main -->
+      <main class="py-6 bg-surface-secondary">
+          <div class="container-fluid">
+              <!-- Card stats -->
+              <div class="row g-6 mb-6">
+                  <div class="col-xl-3 col-sm-6 col-12">
+                      <div class="card shadow border-0">
+                          <div class="card-body">
+                              <div class="row">
+                                  <div class="col">
+                                      <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Orders</span>
+                                     
+                                        <span class="h3 font-bold mb-0"><%= barang.length %> </span>
+                                       
+                                      
+                                  </div>
+                                  <div class="col-auto">
+                                      <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
+                                        <i class="bi bi-bag"></i>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6 col-12">
+                      <div class="card shadow border-0">
+                          <div class="card-body">
+                              <div class="row">
+                                  <div class="col">
+                                      <span class="h6 font-semibold text-muted text-sm d-block mb-2">Jumlah Stock</span>
+                                      <span class="h3 font-bold mb-0">
+                                        <% let stock= 0 %> 
+                                      <% barang.forEach(e => { %>
+                                        <% stock+=e.quantitas %> 
+                                      <% }) %>
+                                      <%= stock %> 
+                                    </span>
+                                  </div>
+                                  <div class="col-auto">
+                                      <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
+                                        <i class="bi bi-box"></i>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Harga</span>
+                                   
+                                      <span class="h3 font-bold mb-0">
+                                        <% let subharga= 0 %> 
+                                      <% barang.forEach(e => { %>
+                                        <% subharga+=e.sub_harga %> 
+                                      <% }) %>
+                                      Rp.<%= subharga %> 
+                                    </span>
+                                     
+                                    
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
+                                        <i class="bi bi-wallet2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="card shadow border-0 mb-7">
+                  <div class="card-header">
+                      <h5 class="mb-0">Products</h5>
+                  </div>
+                  <div class="table-responsive">
+                      <table class="table table-hover table-nowrap">
+                          <thead class="thead-light">
+                              <tr>
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Total Price</th>
+                                  <th scope="col">Quantity</th>
+                                  <th scope="col">Type</th>
+                                  <th scope="col">Item Code</th>
+                                  <th scope="col">Date</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <% product.forEach(produk => { %>
+                                <tr>
+                                  <td> 
+                                      <img alt="" src="<%= produk.gambar %>" width="50px">
+                                      <a class="text-heading font-semibold" href="#">
+                                        <%= produk.nama_barang %>
+                                      </a>
+                                  </td>
+                                  <td>
+                                      Rp.<%= produk.sub_harga %> 
+                                  </td>
+                                  <td>
+                                    <i class="bi bi-box"></i>
+                                      <a class="text-heading font-semibold" href="#">
+                                          <%= produk.quantitas %>pcs
+                                      </a>
+                                  </td>
+                                  <td>
+                                      <%= produk.jenis %> 
+                                  </td>
+                                  <td>
+                                      <span class="badge badge-lg badge-dot">
+                                          <i class="bg-success"></i><%= produk.kode_barang %> 
+                                      </span>
+                                  </td>
+                                  <td>
+                                    <span class="">
+                                        <i class="bg-success"></i><%= produk.tgl_tranksaksi.replace("T", ":").replace(".000Z"," ") %> 
+                                    </span>
+                                </td>
+                              </tr>
+                              <% }) %>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="card-footer border-0 py-5">
+                    <nav aria-label="pagination">
+                        <ul class="pagination">
+                            <% for( let i = 1; i <= jumlahHalaman; i++ ) { %>
+                                <% if (i==halamanAktif) { %>
+                                    <li class="page-item"><a class="page-link text-light bg-primary" href="/order?page=<%= i %>"><%= i %> </a></li>
+                                <% } else { %>
+                                    <li class="page-item"><a class="page-link " href="/order?page=<%= i %>"><%= i %> </a></li>
+                                    <% } %> 
+                            <% } %>
+                        </ul>
+                      </nav>
+                  </div>
+              </div>
+          </div>
+      </main>
+  </div>
+</div>
+
+
+</html>

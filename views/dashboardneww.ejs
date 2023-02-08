@@ -64,8 +64,8 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/inv">
-                          <i class="bi bi-bar-chart"></i> Invoices
+                      <a class="nav-link" href="/order">
+                          <i class="bi bi-bar-chart"></i> Order
                       </a>
                   </li>
                   <li class="nav-item">
@@ -119,6 +119,7 @@
                           <h1 class="h2 mb-0 ls-tight">Product</h1>
                       </div>
                       <!-- Actions -->
+
                       <div class="col-sm-6 col-12 text-sm-end">
                           <div class="mx-n1">
                               <a href="/add-product" class="btn d-inline-flex btn-sm btn-primary mx-1">
@@ -130,6 +131,12 @@
                           </div>
                       </div>
                   </div>
+                  <form  class="col-sm-6 col-12 mb-4 mb-sm-0" id="form" method="post" >
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" autofocus autocomplete="off" name="keyword" id="keyword" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        <button type="submit" class="btn btn-primary" id="search" name="search"><i class="bi bi-search"></i></button>
+                      </div>
+                  </form>
 
                   <!-- Nav -->
                   <ul class="nav nav-tabs mt-4 overflow-x border-0">
@@ -172,7 +179,7 @@
                                   <div class="col">
                                       <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Products</span>
                                      
-                                        <span class="h3 font-bold mb-0"><%= product.length %> </span>
+                                        <span class="h3 font-bold mb-0"><%= barang.length %> </span>
                                        %>
                                       
                                   </div>
@@ -193,7 +200,7 @@
                                       <span class="h6 font-semibold text-muted text-sm d-block mb-2">Jumlah Stock</span>
                                       <span class="h3 font-bold mb-0">
                                         <% let stock= 0 %> 
-                                      <% product.forEach(e => { %>
+                                      <% barang.forEach(e => { %>
                                         <% stock+=e.quantitas %> 
                                       <% }) %>
                                       <%= stock %> 
@@ -209,11 +216,11 @@
                       </div>
                   </div>
               </div>
-              <div class="card shadow border-0 mb-7">
+              <div class="card shadow border-0 mb-7" id="content">
                   <div class="card-header">
                       <h5 class="mb-0">Products</h5>
                   </div>
-                  <div class="table-responsive">
+                  <div class="table-responsive" >
                       <table class="table table-hover table-nowrap">
                           <thead class="thead-light">
                               <tr>
@@ -272,7 +279,7 @@
                         <ul class="pagination">
                             <% for( let i = 1; i <= jumlahHalaman; i++ ) { %>
                                 <% if (i==halamanAktif) { %>
-                                    <li class="page-item"><a class="page-link" style="color:aqua;" href="/dashboard?page=<%= i %>"><%= i %> </a></li>
+                                    <li class="page-item"><a class="page-link text-light bg-primary" href="/dashboard?page=<%= i %>"><%= i %> </a></li>
                                 <% } else { %>
                                     <li class="page-item"><a class="page-link " href="/dashboard?page=<%= i %>"><%= i %> </a></li>
                                     <% } %> 
@@ -305,6 +312,21 @@
         
  
 
+    })
+
+    const keyword = document.getElementById("keyword")
+    const search = document.getElementById("search")
+    const content = document.getElementById("content")
+    keyword.addEventListener("keypress",function ()  {
+      const xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = function () {
+        if(xhr.readyState == 4 && xhr.status == 200){
+            content.innerHTML=xhr.responseText
+        }
+      }
+
+      xhr.open('POST','dashboard?keyword='+keyword.value,true)
+      xhr.send()
     })
 </script>
 </html>

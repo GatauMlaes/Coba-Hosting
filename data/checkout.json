@@ -1,34 +1,12 @@
-{
-  "cart": [
-    {
-      "inv": "INV1675649153666",
-      "kode_barang": "BRG-1675649041894",
-      "nama_barang": "Mixue Ice-Cream",
-      "harga": "15000",
-      "jumlah_harga": "45000",
-      "qtt": "3",
-      "gambar": "16756491284201674869924317mixue-4_43.jpeg",
-      "jenis": "Lainnya"
-    },
-    {
-      "inv": "INV1675649161648",
-      "kode_barang": "BRG-1675647408532",
-      "nama_barang": "Luwak White Coffe -Original",
-      "harga": "1500",
-      "jumlah_harga": "7500",
-      "qtt": "5",
-      "gambar": "16756475115731674901426909219868570_538a4c74-86ee-408c-9f70-606460ba4f68_500_500.jpg",
-      "jenis": "Minuman Sachet"
-    },
-    {
-      "inv": "INV1675743381683",
-      "kode_barang": "BRG-1675741555524",
-      "nama_barang": "Nasi Goreng",
-      "harga": "10000",
-      "jumlah_harga": "30000",
-      "qtt": "3",
-      "gambar": "16757416226331675052175625download (2).jpg",
-      "jenis": "Makanan"
-    }
-  ]
-}
+{"cart":[
+  {
+    "inv": "INV1675819070557",
+    "kode_barang": "BRG-1675818864744",
+    "nama_barang": "Trenbolene Acetate (10mL)",
+    "harga": "850000",
+    "jumlah_harga": "1700000",
+    "qtt": "2",
+    "gambar": "1675819034357IMAGE_1667544581.webp",
+    "jenis": "Lainnya"
+  }
+] }
