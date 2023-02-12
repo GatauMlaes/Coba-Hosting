@@ -1,12 +1,14 @@
-{"cart":[
-  {
-    "inv": "INV1675819070557",
-    "kode_barang": "BRG-1675818864744",
-    "nama_barang": "Trenbolene Acetate (10mL)",
-    "harga": "850000",
-    "jumlah_harga": "1700000",
-    "qtt": "2",
-    "gambar": "1675819034357IMAGE_1667544581.webp",
-    "jenis": "Lainnya"
-  }
-] }
+{
+  "cart": [
+    {
+      "inv": "INV1676083925187",
+      "kode_barang": "BRG-1676083759705",
+      "nama_barang": "Luwak WhiteCoffe",
+      "harga": "1500",
+      "jumlah_harga": "3000",
+      "qtt": "2",
+      "gambar": "1676083843001167504554227220036590_1.jpg",
+      "jenis": "Jenis"
+    }
+  ]
+}

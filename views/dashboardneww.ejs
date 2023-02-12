@@ -179,7 +179,7 @@
                                   <div class="col">
                                       <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Products</span>
                                      
-                                        <span class="h3 font-bold mb-0"><%= barang.length %> </span>
+                                        <span class="h3 font-bold mb-0"><%= productPagination.length %> </span>
                                        %>
                                       
                                   </div>
@@ -200,7 +200,7 @@
                                       <span class="h6 font-semibold text-muted text-sm d-block mb-2">Jumlah Stock</span>
                                       <span class="h3 font-bold mb-0">
                                         <% let stock= 0 %> 
-                                      <% barang.forEach(e => { %>
+                                      <% productPagination.forEach(e => { %>
                                         <% stock+=e.quantitas %> 
                                       <% }) %>
                                       <%= stock %> 
@@ -233,7 +233,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <% product.forEach(produk => { %>
+                              <% productPagination.forEach(produk => { %>
                                 <tr>
                                   <td> 
                                       <img alt="" src="<%= produk.gambar %>" width="50px">
