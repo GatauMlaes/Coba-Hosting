@@ -127,19 +127,19 @@
         </div>
     </header>
 
-
+    <% if (msg.length !== 0) { %>
+        <div class="alert alert-danger" role="alert">
+          <h4><%= msg %> </h4>
+        </div>
+      <% } %>
      <!-- Main content -->
   <div class="container-fluid">
     
-    <form method="post" enctype="multipart/form-data"  action="/add">
+    <form method="post" enctype="multipart/form-data" action="/add">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
           <input type="text" required    class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="nama_barang" >
         </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Kode Barang</label> 
-            <input type="text" required   readonly class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="BRG-<%= Date.now() %>" maxlength="20" name="kode_barang">
-          </div>
         <div class="mb-3">
             <select class="form-select" name="jenis" aria-label="Default select example">
                 <option selected>Jenis</option>

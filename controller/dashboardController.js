@@ -1,8 +1,7 @@
 import db from "../config/Database.js";
 import ejs from "ejs";
-import multer from "multer";
-import fs from "fs";
 import path from "path";
+import fs from "fs";
 import flash from "connect-flash" ;
 
 export const getProductDashboard =  (req, res) => {
@@ -39,39 +38,101 @@ export const getProductDashboard =  (req, res) => {
 
 export const addProductDashboard = (req, res) => {
   try {
-    res.render("add.ejs");
+    res.render("add.ejs",
+    {
+      msg:req.flash('msg')
+    });
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const saveProductDashboard = (req, res) => {
-  try {
-    const namaBarang = req.body.nama_barang;
-    const kodeBarang = req.body.kode_barang;
-    const jenis = req.body.jenis;
-    const harga = req.body.harga;
-    const quantitas = req.body.quantitas;
-    const deskripsi = req.body.deskripsi;
-    const namaFile = req.file.filename;
+
+export const saveProductDashboard = (req,res) => {
+  const file = req.files.asset
+  const fileSize = file.data.length;
+  const ext = path.extname(file.name) 
+  const fileName = file.md5 + ext ;
+  const url = `${req.protocol}://${req.get("host")}/image/${fileName}`
+  const allowedType = [".png",".jpg",".jpeg"]
+
+  if(!allowedType.includes(ext.toLowerCase())){
+    req.flash('msg','Invalid Images')
+    return res.redirect("/add-product")
+  };
+  
+  file.mv(`./assets/${fileName}`, async (err) => {
+      if(err) return res.status(500).json({msg:err.message})
+      try {
+        const namaBarang = req.body.nama_barang
+        const kodeBarang = 'BRG-' + Date.now()
+        const jenis = req.body.jenis
+        const harga = req.body.harga
+        const quantitas = req.body.quantitas
+        const deskripsi = req.body.deskripsi
+
+        const sql = `INSERT INTO tb_barang (id, kode_barang, nama_barang, jenis, quantitas, harga, gambar,deskripsi) VALUES (NULL, '${kodeBarang}', '${namaBarang}', '${jenis}', ${quantitas}, ${harga}, '${fileName}', '${deskripsi}');`
+        db.query(sql,(err,result) => {
+            if(err)throw err;
+        })
+        
+          res.redirect("/add-product")
+      } catch (error) {
+          console.log(error.message);
+      }
+  })
+
+}
+
+
+export const updateProductDashboard =  (req,res) => {
+  const kodeBarang = req.body.kode_barang
+  const sql = `SELECT * FROM tb_barang WHERE kode_barang = '${kodeBarang}'`
+  db.query(sql,(err,result)=> {
+    if(err) throw err;
+    const product = JSON.parse(JSON.stringify(result, null, 2));
+    let fileName = "";
+    if(req.files === null){
+      fileName = product[0].gambar
+  } else {
+    const file = req.files.asset
+    const ext = path.extname(file.name)
+    fileName = file.md5 + ext ;
     const allowedType = [".png",".jpg",".jpeg"]
-    
-    const ext = path.extname(namaFile)
-    
+    //Validasi Type extension
     if(!allowedType.includes(ext.toLowerCase())){
-        req.flash('msg','Invalid Images') 
-       return res.status(422).redirect("/add-product")
-    } else {
-        const sql = `INSERT INTO tb_barang (id, kode_barang, nama_barang, jenis, quantitas, harga, gambar,deskripsi) VALUES (NULL, '${kodeBarang}', '${namaBarang}', '${jenis}', ${quantitas}, ${harga}, '${namaFile}', '${deskripsi}');`;
-        db.query(sql, (err, result) => {
-          if (err) throw err;
-          res.redirect("/add-product");
-        });
-    }
-  } catch (error) {
-    console.log(error.message);
+      req.flash('msg','Invalid Images')
+      const barang = product
+      return res.render("edit-product.ejs",
+      { barang,msg:req.flash('msg')});
+    };
+      // Delete Image Lama
+      const filePath = `./assets/${product[0].gambar}`
+      fs.unlinkSync(filePath) 
+      file.mv(`./assets/${fileName}`,  (err) => {
+        if(err) return res.status(500).json({msg:err.message})
+    })   
   }
-};
+
+  const namaBarang = req.body.nama_barang
+  const jenis = req.body.jenis
+  const harga = req.body.harga
+  const quantitas = req.body.quantitas
+  const all = req.body
+  const id = req.body.id
+
+  const sqlUpdate = `UPDATE tb_barang SET kode_barang = '${kodeBarang}', nama_barang = '${namaBarang}', jenis = '${jenis}', quantitas = '${quantitas}', harga = '${harga}', gambar = '${fileName}' WHERE tb_barang.id = ${id};`
+
+  db.query(sqlUpdate,(err,result) => {
+    if(err)throw err;
+    res.redirect("/dashboard")
+  })
+
+  })
+
+
+}
+
 
 export const deleteProductDashboard = (req,res) => {
     const kodeBarang = req.params.kode_barang
@@ -87,43 +148,18 @@ export const deleteProductDashboard = (req,res) => {
 }
 
 
-export const savekw2Product = (req,res) => {
-  if(req.files === null) return res.json({msg:"No File Uploaded"});
-    const name = req.body.title
-    const file = req.files.file // name di input nya file !!!
-    const fileSize = file.data.length;
-    const ext = path.extname(file.name)
-    const fileName = file.md5 + ext ;
-    const url = `${req.protocol}://${req.get("host")}/image/${fileName}`
-    const allowedType = [".png",".jpg",".jpeg"]
+export const updateProduct =  (req,res) => {
+  const sql = `SELECT * FROM tb_barang WHERE kode_barang = '${req.params.kode_barang}'`
+  db.query(sql,(err,result)=> {
+    if(err) throw err;
+    const barang = JSON.parse(JSON.stringify(result, null, 2));
+    if(!barang) {
+      req.flash('msg','PRODUCT NOT FOUND')
+      return res.redirect("/add-product")
+    }
+ 
+    res.render("edit-product.ejs",{barang,msg:req.flash('msg')})
+  })
+  
 
-    if(!allowedType.includes(ext.toLowerCase())) return res.json({msg:"Invalid Image"}) ;
-
-    file.mv(`./public/image/${fileName}`, async (err) => {
-        if(err) return res.status(500).json({msg:err.message})
-        // try {
-        //    await Product.create({
-        //         nama:name,
-        //         image:fileName,
-        //         url:url
-        //     })
-        //     res.status(201).json({msg:"Product Succesed Created"})
-        // } catch (error) {
-        //     console.log(error.message);
-        // }
-    })
-
-  // file.mv(`./assets/${fileName}`, async (err) => {
-  //   if(err) return res.status(500).json({msg:err.message})
-
-  //   try {
-  //     // const sql = `INSERT INTO tb_barang (id, kode_barang, nama_barang, jenis, quantitas, harga, gambar,deskripsi) VALUES (NULL, 'BRG${Date.now()}', ' ${name}', 'Makanan', 1000, 1500, '${fileName}', 'hfeweujhhiuheiwfjodskjoidsjod);`;
-  //     // db.query(sql,(el,result) => {
-  //     //   if(el) throw el ;
-  //     //   res.status(200).json(result)
-  //     // })
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // })
 }
