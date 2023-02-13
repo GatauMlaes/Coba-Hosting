@@ -1,4 +1,5 @@
 import { getProductDashboard, addProductDashboard, saveProductDashboard, deleteProductDashboard, updateProduct, updateProductDashboard,} from "../controller/dashboardController.js";
+import {getProductEcom} from "../controller/ecommerceController.js"
 import express from "express";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
@@ -22,7 +23,7 @@ route.use(
 }))
 
 
-
+route.get("/",getProductEcom)
 route.get("/dashboard",getProductDashboard)
 route.get("/add-product",addProductDashboard)
 route.post("/add",saveProductDashboard)
